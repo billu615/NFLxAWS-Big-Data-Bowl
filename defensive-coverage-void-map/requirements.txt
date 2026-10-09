@@ -1,0 +1,8 @@
+flask
+pandas
+numpy
+matplotlib
+scipy
+imageio
+imageio-ffmpeg
+requests
