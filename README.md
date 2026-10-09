@@ -30,6 +30,7 @@ An interactive dashboard for examining how pass rushers compress and penetrate t
 A threat is currently defined as a rusher coming within **2.5 yards** of the moving quarterback. This is an exploratory reference, not an official NFL or PFF pressure definition.
 
 ### 2. Coverage Void Map
+[Open the Coverage Void Map dashboard](https://billu615.github.io/NFLxAWS-Big-Data-Bowl/defensive-coverage-void-map/)
 
 `Coverage Void Map` will analyze NFL Big Data Bowl player-tracking data to show how defensive coverage changes during a play. Animated heat maps will highlight open field space, helping coaches identify coverage gaps and defensive breakdowns.
 
