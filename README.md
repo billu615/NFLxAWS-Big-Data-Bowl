@@ -13,7 +13,7 @@ The goal is to answer actionable questions such as:
 
 ## Projects
 
-### 1. Defensive Pocket Command — available
+### 1. Defensive Pocket Command
 
 [Open the pocket-analysis dashboard](https://billu615.github.io/NFLxAWS-Big-Data-Bowl/pocket_analysis/)
 
@@ -29,7 +29,7 @@ An interactive dashboard for examining how pass rushers compress and penetrate t
 
 A threat is currently defined as a rusher coming within **2.5 yards** of the moving quarterback. This is an exploratory reference, not an official NFL or PFF pressure definition.
 
-### 2. Coverage Void Map — planned
+### 2. Coverage Void Map
 
 `Coverage Void Map` will analyze NFL Big Data Bowl player-tracking data to show how defensive coverage changes during a play. Animated heat maps will highlight open field space, helping coaches identify coverage gaps and defensive breakdowns.
 
@@ -90,4 +90,4 @@ Then open <http://localhost:8000/pocket_analysis/>. Stop the server with `Ctrl+C
 
 These tools are intended to index and explain film, not replace coaching review or serve as standalone player grades. Pocket boundaries, threat thresholds, coverage responsibility, stunts, switches, quarterback movement, and play context all require further validation.
 
-The generated dashboard files contain reduced player-tracking data. Confirm that the NFL Big Data Bowl terms permit public redistribution before publishing them.
+The generated dashboard files contain a reduced derivative of player tracking for pocket participants. Confirm that the NFL Big Data Bowl terms permit public redistribution before publishing `pocket_analysis/data/games/`. Raw source CSV files remain ignored by Git and are not copied into the Pages artifact.
