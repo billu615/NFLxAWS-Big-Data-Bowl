@@ -199,3 +199,6 @@ The raw source data, preprocessing code, notebooks, and other repository files a
 ## Data publication notice
 
 The generated dashboard files contain a reduced derivative of player tracking for pocket participants. Confirm that the NFL Big Data Bowl terms permit public redistribution before publishing `pocket_analysis/data/games/`. Raw source CSV files remain ignored by Git and are not copied into the Pages artifact.
+
+Coverage Void Map
+This project analyzes NFL Big Data Bowl player-tracking data to visualize how defensive coverage changes during a play. It generates animated heat maps that highlight open space on the field, making it easier to identify coverage gaps and defensive breakdowns. The project includes a Flask web app and a command-line tool for exploring games, plays, coverage schemes, and outcomes from a defensive perspective.
