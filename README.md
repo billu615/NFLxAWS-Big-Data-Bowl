@@ -42,8 +42,6 @@ The planned project will include:
 - A Flask web application
 - A command-line exploration tool
 
-This project will live in a separate `coverage_void_map/` folder and **has not been added yet**.
-
 ## Data
 
 The current analysis covers Weeks 1–8 of the 2021 NFL season:
@@ -68,26 +66,3 @@ Notebooks:
 
 - [Initial data overview](Initial%20Analysis/01_data_overview.ipynb)
 - [Pocket situation analysis](Initial%20Analysis/02_pocket_situation_analysis.ipynb)
-
-## Run the pocket dashboard locally
-
-```bash
-uv sync
-uv run python pocket_analysis/scripts/build_dashboard_data.py
-uv run python -m http.server 8000 --directory .
-```
-
-Then open <http://localhost:8000/pocket_analysis/>. Stop the server with `Ctrl+C`.
-
-## Publish with GitHub Pages
-
-1. Open **Repository Settings → Pages**.
-2. Set **Build and deployment → Source** to **GitHub Actions**.
-3. Push dashboard changes to `main` or rerun **Deploy pocket analysis page**.
-4. Monitor the deployment in the **Actions** tab.
-
-## Interpretation and publication notes
-
-These tools are intended to index and explain film, not replace coaching review or serve as standalone player grades. Pocket boundaries, threat thresholds, coverage responsibility, stunts, switches, quarterback movement, and play context all require further validation.
-
-The generated dashboard files contain a reduced derivative of player tracking for pocket participants. Confirm that the NFL Big Data Bowl terms permit public redistribution before publishing `pocket_analysis/data/games/`. Raw source CSV files remain ignored by Git and are not copied into the Pages artifact.
