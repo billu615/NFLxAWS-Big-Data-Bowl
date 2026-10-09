@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - "pocket_analysis/**"
+      - "defensive-coverage-void-map/**"
       - ".github/workflows/pages.yml"
   workflow_dispatch:
 
@@ -32,12 +33,17 @@ jobs:
 
       - name: Assemble path-based site
         run: |
-          mkdir -p _site/pocket_analysis
+          mkdir -p _site/pocket_analysis _site/defensive-coverage-void-map
           cp pocket_analysis/pages-root.html _site/index.html
           cp pocket_analysis/index.html _site/pocket_analysis/index.html
           cp pocket_analysis/app.js _site/pocket_analysis/app.js
           cp pocket_analysis/styles.css _site/pocket_analysis/styles.css
           cp -R pocket_analysis/data _site/pocket_analysis/data
+          cp defensive-coverage-void-map/index.html _site/defensive-coverage-void-map/index.html
+          cp defensive-coverage-void-map/app.js _site/defensive-coverage-void-map/app.js
+          cp defensive-coverage-void-map/styles.css _site/defensive-coverage-void-map/styles.css
+          cp defensive-coverage-void-map/demo-data.json _site/defensive-coverage-void-map/demo-data.json
+          cp -R defensive-coverage-void-map/demo-assets _site/defensive-coverage-void-map/demo-assets
           touch _site/.nojekyll
 
       - name: Upload static dashboard

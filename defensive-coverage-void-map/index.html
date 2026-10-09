@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Interactive NFL defensive coverage void analysis using player tracking data.">
+  <title>Coverage Void Map — Defensive Breakdown Tool</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="hero">
+    <div class="hero__eyebrow">NFL BIG DATA BOWL · DEFENSIVE ANALYTICS</div>
+    <h1>Coverage Void Map</h1>
+    <p class="hero__subtitle">Identify open grass at pass release and evaluate how the called coverage held up.</p>
+  </header>
+
+  <main class="shell">
+    <section class="control-panel" aria-labelledby="selection-title">
+      <div>
+        <h2 id="selection-title">Select a Play</h2>
+        <p id="demo-notice" class="notice">Loading public demo data…</p>
+      </div>
+      <div class="controls">
+        <label>Game
+          <select id="game-select" disabled><option>Loading games…</option></select>
+        </label>
+        <label>Play
+          <select id="play-select" disabled><option>Select a game</option></select>
+        </label>
+        <button id="generate-button" type="button" disabled>Generate Breakdown</button>
+      </div>
+      <p id="status" class="status" role="status" aria-live="polite"></p>
+    </section>
+
+    <section id="results" class="results" hidden>
+      <div class="result-heading">
+        <div>
+          <div id="game-label" class="result-heading__game"></div>
+          <h2 id="play-title"></h2>
+        </div>
+        <div id="result-badge" class="result-badge"></div>
+      </div>
+
+      <div class="animation-card">
+        <img id="coverage-animation" alt="Animated horizontal Coverage Void Map">
+        <div class="animation-toolbar">
+          <button id="replay-button" type="button">Replay Animation</button>
+          <div class="legend" aria-label="Coverage heat map legend">
+            <span><i class="swatch swatch--open"></i> Open space</span>
+            <span><i class="swatch swatch--covered"></i> Tightly covered</span>
+            <span class="direction">Offense advances →</span>
+          </div>
+        </div>
+      </div>
+
+      <p id="play-description" class="play-description"></p>
+
+      <div id="situation-grid" class="situation-grid"></div>
+
+      <div class="analysis-grid">
+        <article class="analysis-card">
+          <span class="card-label">Coverage Call</span>
+          <h3 id="coverage-name"></h3>
+          <p id="scheme-note"></p>
+        </article>
+        <article class="analysis-card analysis-card--void">
+          <span class="card-label">Largest Void at Pass Release</span>
+          <h3 id="void-distance"></h3>
+          <p id="void-phrase"></p>
+        </article>
+      </div>
+
+      <aside class="method-note">
+        <strong>How to read the map:</strong> Each location is colored by its distance to the nearest defender. Red indicates greater spatial separation; green indicates tighter proximity. This metric describes available space and leverage, not definitive coverage assignment responsibility.
+      </aside>
+    </section>
+  </main>
+
+  <footer>
+    Coverage Void Map · NFL tracking-data coaching prototype
+  </footer>
+  <script src="app.js" defer></script>
+</body>
+</html>

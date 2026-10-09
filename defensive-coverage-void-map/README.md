@@ -4,6 +4,14 @@ A coach-facing Flask application for exploring NFL tracking data. Select a game
 and play to generate a full-width animated **Coverage Void Map**, review the
 called coverage, and evaluate the result from the defense's perspective.
 
+## Public demo
+
+**[Open the GitHub Pages demo](https://billu615.github.io/NFLxAWS-Big-Data-Bowl/defensive-coverage-void-map/)**
+
+The public site contains a curated set of representative Cover-1, Cover-2, and
+Cover-3 plays. The local Flask application supports every game and play for
+which tracking data is available.
+
 ## What the tool shows
 
 - **Coverage density:** every grid point is colored by its distance to the

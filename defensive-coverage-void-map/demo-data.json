@@ -1,0 +1,140 @@
+{
+  "demoNotice": "Curated public demo — run the local Flask app with the full dataset to access all games and plays.",
+  "games": [
+    {
+      "gameId": 2021090900,
+      "label": "Week 1: DAL @ TB (09/09/2021)",
+      "plays": [
+        {
+          "playId": 137,
+          "label": "1st & 10 — (13:18) (Shotgun) D.Prescott pass deep left to A.Cooper push",
+          "description": "(13:18) (Shotgun) D.Prescott pass deep left to A.Cooper pushed ob at DAL 30 for 28 yards (A.Winfield).",
+          "gif": "demo-assets/coverage_2021090900_137.gif",
+          "result": {
+            "down_distance": "1st & 10",
+            "first_down_conceded": true,
+            "headline": "DEFENSE BEATEN — Completion for 28 yds",
+            "tier": "beaten"
+          },
+          "analysis": {
+            "coverage": "Cover-3",
+            "coverage_type": "Zone",
+            "defenders_in_box": 6,
+            "drop_back_type": "TRADITIONAL",
+            "largest_void": {
+              "dist_to_nearest_yds": 19.1,
+              "downfield_yds": 32.1,
+              "lateral_yds": 23.3,
+              "phrase": "Largest void at ~32 yds downfield, 23 yds to the right, ~19 yds from nearest defender.",
+              "side": "right"
+            },
+            "offense_formation": "EMPTY",
+            "personnel_d": "4 DL, 4 LB, 3 DB",
+            "personnel_o": "1 RB, 2 TE, 2 WR",
+            "play_action": false,
+            "scheme_note": "Cover-3 drops three deep and four underneath, so the seams and the curl-flat areas are the pressure points. The two deep 'honey holes' sit roughly 12-18 yards downfield just outside the hashes, between the deep third defenders and the underneath hook players."
+          },
+          "situation": {
+            "defendersInBox": 6,
+            "defensiveTeam": "TB",
+            "down_distance": "1st & 10",
+            "gameClock": "13:18",
+            "offenseFormation": "EMPTY",
+            "personnelD": "4 DL, 4 LB, 3 DB",
+            "personnelO": "1 RB, 2 TE, 2 WR",
+            "possessionTeam": "DAL",
+            "quarter": 1
+          }
+        },
+        {
+          "playId": 735,
+          "label": "2nd & 3 — (2:45) (Shotgun) D.Prescott pass short right to M.Gallup ran",
+          "description": "(2:45) (Shotgun) D.Prescott pass short right to M.Gallup ran ob at TB 29 for 8 yards.",
+          "gif": "demo-assets/coverage_2021090900_735.gif",
+          "result": {
+            "down_distance": "2nd & 3",
+            "first_down_conceded": true,
+            "headline": "DEFENSE OK — Short completion (8 yds)",
+            "tier": "ok"
+          },
+          "analysis": {
+            "coverage": "Cover-2",
+            "coverage_type": "Zone",
+            "defenders_in_box": 6,
+            "drop_back_type": "SCRAMBLE_ROLLOUT_RIGHT",
+            "largest_void": {
+              "dist_to_nearest_yds": 19.4,
+              "downfield_yds": 29.9,
+              "lateral_yds": 41.5,
+              "phrase": "Largest void at ~30 yds downfield, 42 yds to the right, ~19 yds from nearest defender.",
+              "side": "right"
+            },
+            "offense_formation": "SHOTGUN",
+            "personnel_d": "3 DL, 3 LB, 5 DB",
+            "personnel_o": "1 RB, 1 TE, 3 WR",
+            "play_action": true,
+            "scheme_note": "Cover-2 keeps two deep safeties splitting the field, which opens the deep middle hole between them and the deep sideline behind the cornerback. Attack the void over the top of the corner or up the seam before the safety can close."
+          },
+          "situation": {
+            "defendersInBox": 6,
+            "defensiveTeam": "TB",
+            "down_distance": "2nd & 3",
+            "gameClock": "02:45",
+            "offenseFormation": "SHOTGUN",
+            "personnelD": "3 DL, 3 LB, 5 DB",
+            "personnelO": "1 RB, 1 TE, 3 WR",
+            "possessionTeam": "DAL",
+            "quarter": 1
+          }
+        }
+      ]
+    },
+    {
+      "gameId": 2021091200,
+      "label": "Week 1: PHI @ ATL (09/12/2021)",
+      "plays": [
+        {
+          "playId": 605,
+          "label": "3rd & 4 — (6:23) (Shotgun) J.Hurts pass deep left to D.Smith for 18 ya",
+          "description": "(6:23) (Shotgun) J.Hurts pass deep left to D.Smith for 18 yards, TOUCHDOWN.",
+          "gif": "demo-assets/coverage_2021091200_605.gif",
+          "result": {
+            "down_distance": "3rd & 4",
+            "first_down_conceded": true,
+            "headline": "DEFENSE BEATEN — Completion for 18 yds",
+            "tier": "beaten"
+          },
+          "analysis": {
+            "coverage": "Cover-1",
+            "coverage_type": "Man",
+            "defenders_in_box": 5,
+            "drop_back_type": "TRADITIONAL",
+            "largest_void": {
+              "dist_to_nearest_yds": 18.9,
+              "downfield_yds": 26.2,
+              "lateral_yds": 23.4,
+              "phrase": "Largest void at ~26 yds downfield, 23 yds to the right, ~19 yds from nearest defender.",
+              "side": "right"
+            },
+            "offense_formation": "EMPTY",
+            "personnel_d": "1 DL, 5 LB, 5 DB",
+            "personnel_o": "1 RB, 1 TE, 3 WR",
+            "play_action": false,
+            "scheme_note": "Cover-1 is man coverage with a single high safety, so it is beaten by man-beaters: picks and rub routes, crossers, and scramble lanes once the pocket breaks down. Isolate the matchup you like and create natural traffic."
+          },
+          "situation": {
+            "defendersInBox": 5,
+            "defensiveTeam": "ATL",
+            "down_distance": "3rd & 4",
+            "gameClock": "06:23",
+            "offenseFormation": "EMPTY",
+            "personnelD": "1 DL, 5 LB, 5 DB",
+            "personnelO": "1 RB, 1 TE, 3 WR",
+            "possessionTeam": "PHI",
+            "quarter": 1
+          }
+        }
+      ]
+    }
+  ]
+}
