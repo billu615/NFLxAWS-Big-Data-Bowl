@@ -1,0 +1,211 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07111d">
+  <meta name="description" content="Defensive coordinator pocket-collapse film and tracking dashboard">
+  <title>Defensive Pocket Command</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div id="loading" class="loading-screen" role="status" aria-live="polite">
+    <div class="loading-mark"></div>
+    <p>Loading defensive film room…</p>
+  </div>
+
+  <header class="topbar">
+    <div class="brand-block">
+      <div class="brand-mark" aria-hidden="true">DPC</div>
+      <div>
+        <p class="eyebrow">DEFENSIVE ANALYTICS · FILM ROOM</p>
+        <h1>Defensive Pocket Command</h1>
+      </div>
+    </div>
+    <div class="topbar-status">
+      <span class="status-dot"></span>
+      <span>2021 · WEEKS 1–8</span>
+      <span class="status-separator">/</span>
+      <span>10 HZ TRACKING</span>
+    </div>
+  </header>
+
+  <main class="app-shell">
+    <aside class="sidebar" aria-label="Game and play controls">
+      <section class="control-section">
+        <p class="section-kicker">FILM SELECTION</p>
+        <label for="game-select">Game</label>
+        <select id="game-select" disabled>
+          <option>Loading games…</option>
+        </select>
+
+        <label for="play-select">Play</label>
+        <select id="play-select" disabled>
+          <option>Select a game first</option>
+        </select>
+      </section>
+
+      <section class="context-card" aria-labelledby="context-title">
+        <div class="panel-heading compact">
+          <div>
+            <p class="section-kicker">PLAY CALL CONTEXT</p>
+            <h2 id="context-title">—</h2>
+          </div>
+          <span id="result-badge" class="result-badge">—</span>
+        </div>
+        <dl class="context-grid">
+          <div><dt>Situation</dt><dd id="context-situation">—</dd></div>
+          <div><dt>Matchup</dt><dd id="context-matchup">—</dd></div>
+          <div><dt>Formation</dt><dd id="context-formation">—</dd></div>
+          <div><dt>Coverage</dt><dd id="context-coverage">—</dd></div>
+          <div><dt>Dropback</dt><dd id="context-dropback">—</dd></div>
+          <div><dt>Play action</dt><dd id="context-action">—</dd></div>
+        </dl>
+        <p id="play-description" class="play-description">Select a play to begin.</p>
+      </section>
+
+      <section class="coaching-card">
+        <p class="section-kicker">DEFENSIVE COACHING READ</p>
+        <h2>What the rep says</h2>
+        <p id="coaching-read">Choose a game and play to generate a defensive pocket read.</p>
+      </section>
+
+      <section class="legend-card">
+        <p class="section-kicker">FIELD KEY</p>
+        <div class="legend-row"><span class="legend-symbol qb-symbol">QB</span><span>Quarterback</span></div>
+        <div class="legend-row"><span class="legend-symbol blocker-symbol">OL</span><span>Core offensive line</span></div>
+        <div class="legend-row"><span class="legend-symbol helper-symbol">H</span><span>Help blocker</span></div>
+        <div class="legend-row"><span class="legend-symbol rusher-symbol">DL</span><span>Pass rusher</span></div>
+        <div class="legend-row"><span class="legend-line los-line"></span><span>Line of scrimmage</span></div>
+        <div class="legend-row"><span class="legend-line threat-line"></span><span>2.5-yard threat reference</span></div>
+      </section>
+    </aside>
+
+    <section class="workspace">
+      <div id="error-banner" class="error-banner" role="alert" hidden></div>
+
+      <section class="scoreboard" aria-label="Defensive play summary">
+        <article class="metric-card alert-card">
+          <p>FIRST THREAT</p>
+          <strong id="metric-threat">—</strong>
+          <span id="metric-threat-note">Seconds after snap</span>
+        </article>
+        <article class="metric-card">
+          <p>APPROACH LANE</p>
+          <strong id="metric-lane">—</strong>
+          <span>Offense-relative direction</span>
+        </article>
+        <article class="metric-card">
+          <p>PRIMARY THREAT</p>
+          <strong id="metric-rusher">—</strong>
+          <span id="metric-rusher-note">Nearest pass rusher</span>
+        </article>
+        <article class="metric-card">
+          <p>PFF RESULT</p>
+          <strong id="metric-pressure">—</strong>
+          <span>Hurry · hit · sack credit</span>
+        </article>
+        <article class="metric-card">
+          <p>POCKET PHASE</p>
+          <strong id="metric-duration">—</strong>
+          <span>Snap to throw / sack / run</span>
+        </article>
+      </section>
+
+      <section class="visual-panel">
+        <div class="panel-heading">
+          <div>
+            <p class="section-kicker">SYNCHRONIZED PLAYBACK</p>
+            <h2>Pocket collapse map + threat timeline</h2>
+          </div>
+          <div class="frame-status" aria-live="polite">
+            <span id="current-time">0.0s</span>
+            <span id="frame-count">FRAME 1 / 1</span>
+          </div>
+        </div>
+
+        <div class="visual-grid">
+          <div class="chart-block field-block">
+            <div class="chart-label">
+              <span>POCKET MAP</span>
+              <span>OFFENSE MOVES <b>→</b></span>
+            </div>
+            <svg id="field-svg" viewBox="0 0 820 500" role="img" aria-label="Animated pocket tracking map"></svg>
+          </div>
+          <div class="chart-block timeline-block">
+            <div class="chart-label">
+              <span>NEAREST RUSHER</span>
+              <span>DISTANCE TO QB</span>
+            </div>
+            <svg id="timeline-svg" viewBox="0 0 520 500" role="img" aria-label="Synchronized nearest-rusher distance timeline"></svg>
+          </div>
+        </div>
+
+        <div class="playback-controls">
+          <button id="reset-button" class="icon-button" type="button" aria-label="Return to snap">↺</button>
+          <button id="step-back" class="icon-button" type="button" aria-label="Previous frame">−1</button>
+          <button id="play-button" class="play-button" type="button" aria-label="Play animation">▶ PLAY</button>
+          <button id="step-forward" class="icon-button" type="button" aria-label="Next frame">+1</button>
+          <input id="frame-slider" type="range" min="0" max="0" value="0" step="1" aria-label="Tracking frame" disabled>
+          <label class="speed-control" for="speed-select">SPEED
+            <select id="speed-select">
+              <option value="0.5">0.5×</option>
+              <option value="1" selected>1×</option>
+              <option value="2">2×</option>
+            </select>
+          </label>
+          <label class="toggle-control">
+            <input id="show-matchups" type="checkbox" checked>
+            <span>Assignments</span>
+          </label>
+        </div>
+      </section>
+
+      <section class="lower-grid">
+        <article class="data-panel matchup-panel">
+          <div class="panel-heading compact">
+            <div>
+              <p class="section-kicker">RUSH PLAN REVIEW</p>
+              <h2>Initial blocker–rusher matchups</h2>
+            </div>
+          </div>
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>Pass rusher</th>
+                  <th>Initial blocker(s)</th>
+                  <th>Block</th>
+                  <th>First threat</th>
+                  <th>Min. distance</th>
+                  <th>PFF result</th>
+                </tr>
+              </thead>
+              <tbody id="matchup-body">
+                <tr><td colspan="6" class="empty-cell">Select a play to inspect rush matchups.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </article>
+
+        <article class="data-panel methodology-panel">
+          <p class="section-kicker">READ BEFORE GRADING</p>
+          <h2>How this view should be used</h2>
+          <ul>
+            <li><strong>Threat</strong> means a rusher is within 2.5 yards of the moving QB; it is an exploratory reference, not an official pressure definition.</li>
+            <li><strong>Pocket shading</strong> is an explainable triangle between the QB and outside core blockers, not an official pocket boundary.</li>
+            <li>Use assignments as an initial matchup only. Stunts, switches, chips, free rushers, and QB movement still require film review.</li>
+            <li>All plays are flipped so the offense moves right. Lane labels are always stated from the offense's perspective first.</li>
+          </ul>
+        </article>
+      </section>
+    </section>
+  </main>
+
+  <footer>
+    <span>NFL BIG DATA BOWL · DEFENSIVE POCKET STUDY</span>
+    <span>Use tracking as a film index—not a replacement for coaching review.</span>
+  </footer>
+</body>
+</html>

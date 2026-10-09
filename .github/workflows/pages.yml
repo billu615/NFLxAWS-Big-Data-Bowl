@@ -1,0 +1,50 @@
+name: Deploy pocket analysis page
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "pocket_analysis/**"
+      - ".github/workflows/pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Assemble path-based site
+        run: |
+          mkdir -p _site/pocket_analysis
+          cp pocket_analysis/pages-root.html _site/index.html
+          cp pocket_analysis/index.html _site/pocket_analysis/index.html
+          cp pocket_analysis/app.js _site/pocket_analysis/app.js
+          cp pocket_analysis/styles.css _site/pocket_analysis/styles.css
+          cp -R pocket_analysis/data _site/pocket_analysis/data
+          touch _site/.nojekyll
+
+      - name: Upload static dashboard
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
