@@ -218,3 +218,14 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# .DS_store
+.DS_Store
+
+# Data folder
+nfl-big-data-bowl-regional-event-data/
+
+# uv enviroment
+.python-version
+uv.lock
+pyproject.toml
