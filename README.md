@@ -1,201 +1,93 @@
-# NFL Defensive Pocket Analysis
+# NFL Defensive Coordinator Analytics
 
 [![Deploy pocket analysis page](https://github.com/billu615/NFLxAWS-Big-Data-Bowl/actions/workflows/pages.yml/badge.svg)](https://github.com/billu615/NFLxAWS-Big-Data-Bowl/actions/workflows/pages.yml)
 
-An NFL Big Data Bowl project that uses player tracking and Pro Football Focus (PFF) scouting labels to study how defensive pass rushers compress and penetrate the quarterback's pocket.
+This repository contains NFL Big Data Bowl projects that turn player-tracking data into practical defensive coaching visuals. The primary target audience is an **NFL defensive coordinator**, with supporting value for defensive-line coaches, secondary coaches, scouts, and analysts.
 
-The project is designed around questions a defensive coordinator or defensive-line coach can act on:
+The goal is to answer actionable questions such as:
 
-1. **Where did the rush threaten the pocket?**
-2. **How quickly did the threat reach the quarterback?**
-3. **Which rusher–blocker matchup produced the result?**
-4. **Did the rush maintain containment while creating pressure?**
+- Where and when does the defense create pressure?
+- Which matchups or rush paths disrupt the quarterback?
+- Where does coverage leave usable space for the offense?
+- How can tracking data direct coaches to the right film?
 
-## Interactive dashboard
+## Projects
 
-**Dashboard URL:** https://billu615.github.io/NFLxAWS-Big-Data-Bowl/pocket_analysis/
+### 1. Defensive Pocket Command — available
 
-The dashboard provides a game-and-play selector with synchronized playback:
+[Open the pocket-analysis dashboard](https://billu615.github.io/NFLxAWS-Big-Data-Bowl/pocket_analysis/)
 
-- Animated pocket-collapse map
-- Frame slider, play/pause, reset, and playback-speed controls
-- Quarterback, core offensive line, help blockers, and pass rushers
-- Initial blocker–rusher assignments and rusher paths
-- Nearest-rusher distance timeline
+An interactive dashboard for examining how pass rushers compress and penetrate the quarterback's pocket. Coaches can select a game and play, scrub through tracking frames, and review:
+
+- Animated quarterback, blocker, and pass-rusher movement
+- Pocket shape and rusher paths
 - First-threat time and approach lane
-- PFF hurry, hit, and sack results
-- Defensive coaching summary for each play
-- Shareable URLs containing the selected game and play
+- Nearest-rusher distance timeline
+- Initial blocker–rusher assignments
+- PFF hurry, hit, and sack outcomes
+- A defensive coaching summary for each play
 
-All plays are standardized so the offense moves from left to right. Directional labels are stated from the offense's perspective first, such as **“offense left / defense right.”**
+A threat is currently defined as a rusher coming within **2.5 yards** of the moving quarterback. This is an exploratory reference, not an official NFL or PFF pressure definition.
 
-## Football concept
+### 2. Coverage Void Map — planned
 
-The **offense forms the pocket** around its quarterback. Defensive pass rushers try to deform that protected space by winning around an edge, creating interior push, opening a path for a teammate, or forcing the quarterback away from the intended launch point.
+`Coverage Void Map` will analyze NFL Big Data Bowl player-tracking data to show how defensive coverage changes during a play. Animated heat maps will highlight open field space, helping coaches identify coverage gaps and defensive breakdowns.
 
-Sacks alone provide an incomplete evaluation. A successful rush can also create:
+The planned project will include:
 
-- A hurry or quarterback hit
-- A forced movement or early throw
-- A protection adjustment
-- An escape lane for the quarterback
-- Pressure that arrives too late to receive a box-score result
+- Game and play selection
+- Coverage-scheme and outcome filters
+- Animated open-space heat maps
+- Defensive coverage-gap analysis
+- A Flask web application
+- A command-line exploration tool
 
-Tracking data lets us inspect how every rep develops rather than evaluating only the final outcome.
+This project will live in a separate `coverage_void_map/` folder and **has not been added yet**.
 
-## Dataset
+## Data
 
-The analysis uses the NFL Big Data Bowl pass-protection dataset:
+The current analysis covers Weeks 1–8 of the 2021 NFL season:
 
-- Weeks 1–8 of the 2021 NFL season
 - 122 games
-- 8,557 source passing plays
-- 8,532 plays with complete dashboard pocket measurements
-- 264,729 animation frames
-- Player and football positions sampled at approximately 10 Hz
-- PFF player roles, initial blocker assignments, hurries, hits, and sacks
+- 8,557 passing plays
+- Player and football positions at approximately 10 frames per second
+- PFF player roles, initial blocking assignments, hurries, hits, and sacks
 
-The 25 omitted plays did not contain all timing, quarterback, rusher, or core-line information required by the extraction rules.
+Raw data is expected under `nfl-big-data-bowl-regional-event-data/data/` and is ignored by Git.
 
-The raw dataset is expected at:
+## Repository layout
 
 ```text
-nfl-big-data-bowl-regional-event-data/data/
-├── games.csv
-├── plays.csv
-├── players.csv
-├── pffScoutingData.csv
-└── tracking/
+Initial Analysis/       Exploratory Jupyter notebooks
+pocket_analysis/        Published pocket dashboard and generated data
+coverage_void_map/      Planned coverage project; not added yet
+.github/workflows/      GitHub Pages deployment
 ```
 
-The source-data directory is intentionally ignored by Git.
-
-## Key measurements
-
-### Pocket phase
-
-The measured pocket phase starts at the snap and ends at the first pass release, sack, declared run, or five-second limit.
-
-### First threat
-
-A **first threat** is the first frame where a pass rusher comes within **2.5 yards** of the moving quarterback:
-
-- **Quick threat:** no later than 2.0 seconds
-- **On-time threat:** after 2.0 seconds but no later than 2.5 seconds
-- **Late threat:** after 2.5 seconds
-
-This is an exploratory proximity measure—not an official NFL or PFF pressure definition.
-
-### Pocket shape
-
-The dashboard approximates the pocket with a triangle connecting the quarterback and the two widest core offensive linemen. It provides an understandable representation of pocket width and front cushion, but it is not an official pocket boundary.
-
-### PFF pressure result
-
-PFF hurry, hit, and sack credits are displayed separately from tracking-derived proximity. Disagreement between the two is treated as a film-review prompt rather than proof that either measurement is wrong.
-
-## Defensive coordinator use cases
-
-The dashboard can help coaches:
-
-- Locate recurring left-edge, interior, and right-edge threats
-- Compare how quickly different rushers reach the quarterback
-- Identify blocker matchups to target in a weekly game plan
-- Review whether rush depth creates quarterback escape lanes
-- Separate quick disruption from late cleanup pressure
-- Find productive rushes that do not appear in sack totals
-- Build focused film queues for meetings and player development
-
-The tracking analysis should direct coaches to useful film—not replace film review or become a standalone player grade.
-
-## Repository structure
-
-```text
-.
-├── Initial Analysis/
-│   ├── 01_data_overview.ipynb
-│   └── 02_pocket_situation_analysis.ipynb
-├── pocket_analysis/
-│   ├── index.html
-│   ├── app.js
-│   ├── styles.css
-│   ├── pages-root.html
-│   ├── data/
-│   │   ├── manifest.json
-│   │   └── games/<gameId>.json
-│   ├── scripts/build_dashboard_data.py
-│   └── README.md
-└── .github/workflows/pages.yml
-```
-
-### Initial notebooks
+Notebooks:
 
 - [Initial data overview](Initial%20Analysis/01_data_overview.ipynb)
 - [Pocket situation analysis](Initial%20Analysis/02_pocket_situation_analysis.ipynb)
 
-## Local setup
-
-This project uses [uv](https://docs.astral.sh/uv/) for the Python environment.
+## Run the pocket dashboard locally
 
 ```bash
 uv sync
-```
-
-Regenerate the static dashboard data from the raw CSV files:
-
-```bash
 uv run python pocket_analysis/scripts/build_dashboard_data.py
-```
-
-The builder processes one game at a time and writes compact JSON under `pocket_analysis/data/games/`. The browser only downloads the selected game.
-
-## Preview the dashboard locally
-
-Browsers block the dashboard's `fetch()` calls when opening `index.html` directly. Start a local HTTP server from the project root:
-
-```bash
 uv run python -m http.server 8000 --directory .
 ```
 
-Then open:
+Then open <http://localhost:8000/pocket_analysis/>. Stop the server with `Ctrl+C`.
 
-**http://localhost:8000/pocket_analysis/**
-
-Stop the server with `Ctrl+C`.
-
-## GitHub Pages deployment
-
-The deployment workflow is located at `.github/workflows/pages.yml` and publishes only the static dashboard assets.
-
-To enable deployment:
+## Publish with GitHub Pages
 
 1. Open **Repository Settings → Pages**.
 2. Set **Build and deployment → Source** to **GitHub Actions**.
-3. Push a dashboard change to `main`, or rerun **Deploy pocket analysis page** from the Actions tab.
-4. Wait for the deployment workflow to complete successfully.
+3. Push dashboard changes to `main` or rerun **Deploy pocket analysis page**.
+4. Monitor the deployment in the **Actions** tab.
 
-The Pages artifact contains:
+## Interpretation and publication notes
 
-```text
-/index.html                       # Redirects to the dashboard
-/pocket_analysis/index.html
-/pocket_analysis/app.js
-/pocket_analysis/styles.css
-/pocket_analysis/data/
-```
+These tools are intended to index and explain film, not replace coaching review or serve as standalone player grades. Pocket boundaries, threat thresholds, coverage responsibility, stunts, switches, quarterback movement, and play context all require further validation.
 
-The raw source data, preprocessing code, notebooks, and other repository files are not included in the public Pages artifact.
-
-## Method limitations
-
-- A 2.5-yard radius does not independently prove that a defender won the rep.
-- Distance does not fully describe leverage, blocker control, or the quarterback's throwing motion.
-- The triangular pocket approximation cannot represent every curved or asymmetric pocket.
-- Initial assignments can change after chips, twists, stunts, and protection switches.
-- Planned rollouts and scrambles require different interpretation from traditional dropbacks.
-- Coverage and quarterback decision-making affect how long the rush has to arrive.
-- Player evaluation requires role adjustment, opponent context, minimum-rep rules, and uncertainty estimates.
-
-## Data publication notice
-
-The generated dashboard files contain a reduced derivative of player tracking for pocket participants. Confirm that the NFL Big Data Bowl terms permit public redistribution before publishing `pocket_analysis/data/games/`. Raw source CSV files remain ignored by Git and are not copied into the Pages artifact.
+The generated dashboard files contain reduced player-tracking data. Confirm that the NFL Big Data Bowl terms permit public redistribution before publishing them.
